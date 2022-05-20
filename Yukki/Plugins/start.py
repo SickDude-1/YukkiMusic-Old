@@ -26,8 +26,8 @@ def start_pannel():
                 InlineKeyboardButton(text="📚 Commands", url="https://telegra.ph/Veez-Mega-Guide-01-10")
             ],
             [ 
-                InlineKeyboardButton(text="📣 Channel", url="https://t.me/levinachannel"),
-                InlineKeyboardButton(text="💭 Group", url="https://t.me/VeezSupportGroup")
+                InlineKeyboardButton(text="📣 Channel", url="https://t.me/cheemsxbots"),
+                InlineKeyboardButton(text="💭 Group", url="https://t.me/cheemsxsupport")
             ],
     ]
     return "✨ This is veez mega, a bot that can play music trough the Telegram Group video chat feature.", buttons
@@ -37,7 +37,7 @@ pstart_markup = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "➕ Add me to your Group ➕", url="https://t.me/VeezMegaBot?startgroup=true")
+                        "➕ Add me to your Group ➕", url="https://t.me/cheemsxrobot?startgroup=true")
                 ],[
                     InlineKeyboardButton(
                         "📚 Commands", url="https://telegra.ph/Veez-Mega-Guide-01-10"),
@@ -45,9 +45,9 @@ pstart_markup = InlineKeyboardMarkup(
                         "❓ Setup Guide", url="https://telegra.ph/Veez-Mega-Guid-11-19")
                 ],[
                     InlineKeyboardButton(
-                        "👥 Official Group", url="https://t.me/VeezSupportGroup"), 
+                        "👥 Official Group", url="https://t.me/cheemsxsupport"), 
                     InlineKeyboardButton(
-                        "📎 Official Channel", url="https://t.me/levinachannel")
+                        "📎 Official Channel", url="https://t.me/cheemsxbots")
                 ],
             ]
         )
@@ -58,9 +58,6 @@ welcome_captcha_group = 2
 @app.on_message(filters.new_chat_members, group=welcome_captcha_group)
 async def welcome(_, message: Message):
     chat_id = message.chat.id
-    if not await is_served_chat(chat_id):
-        await message.reply(f"❌ **This chat not authorized !**\n\nI can't stream music in non-authorized chat, ask to sudo user to auth this chat.\n\nCheck the sudo user list [From Here](https://t.me/{BOT_USERNAME}?start=sudolist)", disable_web_page_preview=True)
-        return await app.leave_chat(chat_id)
     for member in message.new_chat_members:
         try:
             if member.id in OWNER:
@@ -79,9 +76,6 @@ async def welcome(_, message: Message):
 @Client.on_message(filters.group & filters.command(["start", "help"]))
 async def start(_, message: Message):
     chat_id = message.chat.id
-    if not await is_served_chat(chat_id):
-        await message.reply(f"❌ **This chat not authorized !**\n\nI can't stream music in non-authorized chat, ask to sudo user to auth this chat.\n\nCheck the sudo user list [From Here](https://t.me/{BOT_USERNAME}?start=sudolist)", disable_web_page_preview=True)
-        return await app.leave_chat(chat_id)
     out = start_pannel()
     await message.reply_text(f"👋🏻 Hi {message.from_user.mention}!\n\n💭 Appoint me as admin in your Group to be able play music, otherwise you can't use my service.", reply_markup=InlineKeyboardMarkup(out[1]))
     return
