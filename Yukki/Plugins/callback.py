@@ -81,7 +81,7 @@ async def isPreviewUp(preview: str) -> bool:
     return False
 
     
-@Client.on_callback_query(filters.regex(pattern=r"ppcl"))
+@app.on_callback_query(filters.regex(pattern=r"ppcl"))
 async def close_deleteTrue(_, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     chat_id = CallbackQuery.message.chat.id
@@ -98,7 +98,7 @@ async def close_deleteTrue(_, CallbackQuery):
     await CallbackQuery.message.delete()
     
     
-@Client.on_callback_query(filters.regex("pausevc"))
+@app.on_callback_query(filters.regex("pausevc"))
 async def off_pauseTrue(_, CallbackQuery):
     a = await app.get_chat_member(CallbackQuery.message.chat.id , CallbackQuery.from_user.id)
     if not a.can_manage_voice_chats:
@@ -117,7 +117,7 @@ async def off_pauseTrue(_, CallbackQuery):
         await CallbackQuery.answer(f"❌ no music is currently playing", show_alert=True)
    
     
-@Client.on_callback_query(filters.regex("resumevc"))
+@app.on_callback_query(filters.regex("resumevc"))
 async def on_resumeTrue(_, CallbackQuery):  
     a = await app.get_chat_member(CallbackQuery.message.chat.id , CallbackQuery.from_user.id)
     if not a.can_manage_voice_chats:
@@ -136,7 +136,7 @@ async def on_resumeTrue(_, CallbackQuery):
         await CallbackQuery.answer(f"❌ no music is currently playing", show_alert=True)
    
     
-@Client.on_callback_query(filters.regex("skipvc"))
+@app.on_callback_query(filters.regex("skipvc"))
 async def skip_changeTrue(_, CallbackQuery): 
     a = await app.get_chat_member(CallbackQuery.message.chat.id , CallbackQuery.from_user.id)
     if not a.can_manage_voice_chats:
@@ -266,7 +266,7 @@ async def skip_changeTrue(_, CallbackQuery):
                 return           
             
        
-@Client.on_callback_query(filters.regex("stopvc"))
+@app.on_callback_query(filters.regex("stopvc"))
 async def end_stopTrue(_, CallbackQuery):
     a = await app.get_chat_member(CallbackQuery.message.chat.id , CallbackQuery.from_user.id)
     if not a.can_manage_voice_chats:
@@ -287,7 +287,7 @@ async def end_stopTrue(_, CallbackQuery):
         await CallbackQuery.answer(f"❌ no music is currently playing", show_alert=True)
 
 
-@Client.on_callback_query(filters.regex("play_playlist"))
+@app.on_callback_query(filters.regex("play_playlist"))
 async def play_playlist(_, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     chat_id = CallbackQuery.message.chat.id
@@ -581,7 +581,7 @@ Request By: {name}
             await m.delete()
 
 
-@Client.on_callback_query(filters.regex("group_playlist"))
+@app.on_callback_query(filters.regex("group_playlist"))
 async def start_group_playlist(_,CallbackQuery):
     a = await app.get_chat_member(CallbackQuery.message.chat.id , CallbackQuery.from_user.id)
     if not a.can_manage_voice_chats:
@@ -627,7 +627,7 @@ async def start_group_playlist(_,CallbackQuery):
     return await CallbackQuery.answer("✅ Track added to Group's playlist !", show_alert=True)
   
 
-@Client.on_callback_query(filters.regex("playlist"))
+@app.on_callback_query(filters.regex("playlist"))
 async def start_personal_playlist(_, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     chat_id = CallbackQuery.message.chat.id
@@ -673,7 +673,7 @@ async def start_personal_playlist(_, CallbackQuery):
     return await CallbackQuery.answer("✅ Track added to your personal playlist !", show_alert=True)   
     
 
-@Client.on_callback_query(filters.regex("P_list"))
+@app.on_callback_query(filters.regex("P_list"))
 async def P_list(_, CallbackQuery):
     _playlist = await get_note_names(CallbackQuery.from_user.id)
     if not _playlist:
@@ -726,7 +726,7 @@ async def P_list(_, CallbackQuery):
             await m.delete()
     
     
-@Client.on_callback_query(filters.regex("G_list"))
+@app.on_callback_query(filters.regex("G_list"))
 async def G_list(_, CallbackQuery):
     user_id = CallbackQuery.from_user.id
     _playlist = await get_note_names(CallbackQuery.message.chat.id)
@@ -777,7 +777,7 @@ async def G_list(_, CallbackQuery):
             await m.delete()
                        
         
-@Client.on_callback_query(filters.regex("cbgroupdel"))
+@app.on_callback_query(filters.regex("cbgroupdel"))
 async def cbgroupdel(_, CallbackQuery):  
     a = await app.get_chat_member(CallbackQuery.message.chat.id , CallbackQuery.from_user.id)
     if not a.can_manage_voice_chats:
@@ -797,7 +797,7 @@ async def cbgroupdel(_, CallbackQuery):
         return await CallbackQuery.message.delete()
     
     
-@Client.on_callback_query(filters.regex("cbdel"))
+@app.on_callback_query(filters.regex("cbdel"))
 async def delplcb(_, CallbackQuery):
     _playlist = await get_note_names(CallbackQuery.from_user.id)                                    
     if not _playlist:
