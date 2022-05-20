@@ -10,7 +10,7 @@ from Yukki import app, SUDOERS
 from Yukki.YukkiUtilities.database.onoff import is_on_off
 
 
-@app.on_message(filters.command("speedtest") & ~filters.edited)
+@app.on_message(filters.command("mspeedtest") & ~filters.edited)
 async def run_speedtest(_, message):
     userid = message.from_user.id
     if await is_on_off(2):
