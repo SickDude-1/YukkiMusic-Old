@@ -61,13 +61,10 @@ def convert_seconds(seconds):
     return "%02d:%02d" % (minutes, seconds)
 
 
-@Client.on_message(command(["play", "play@VeezMegaBot"]) & other_filters)
+@Client.on_message(command(["play", "play@cheemsxrobot"]) & other_filters)
 async def play(_, message: Message):
     await message.delete()
     chat_id = message.chat.id
-    if not await is_served_chat(chat_id):
-        await message.reply(f"❌ **This chat not authorized !**\n\nI can't stream music in non-authorized chat, ask to sudo user to auth this chat.\n\nCheck the sudo user list [From Here](https://t.me/{BOT_USERNAME}?start=sudolist)", disable_web_page_preview=True)
-        return await app.leave_chat(chat_id)  
     if message.sender_chat:
         return await message.reply_text("You'll need to switch to a user account to play music.")  
     user_id = message.from_user.id
@@ -579,7 +576,7 @@ async def popat(_, CallbackQuery):
         return
 
 
-@Client.on_message(command(["playplaylist", "playplaylist@VeezMegaBot"]) & other_filters)
+@Client.on_message(command(["playplaylist", "playplaylist@cheemsxrobot"]) & other_filters)
 async def start_playlist_stream(_, message):
     thumb ="cache/playlist.png"
     chat_id = message.chat.id
