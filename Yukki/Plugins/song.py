@@ -52,10 +52,7 @@ def time_to_seconds(time):
 @Client.on_message(command(["music", "song"]) & ~filters.edited)
 async def musicdl(_, message: Message):
     await message.delete()
-    chat_id = message.chat.id
-    if not await is_served_chat(chat_id):
-        await message.reply_text(f"❌ **This chat not authorized !**\n\nI can't stream music in non-authorized chat, ask to sudo user to auth this chat.\n\nCheck the sudo user list [From Here](https://t.me/{BOT_USERNAME}?start=sudolist)", disable_web_page_preview=True)
-        return await app.leave_chat(chat_id)  
+    chat_id = message.chat.id  
     if message.sender_chat:
         return await message.reply_text("You'll need to switch to a user account to download video/music.")  
     user_id = message.from_user.id
