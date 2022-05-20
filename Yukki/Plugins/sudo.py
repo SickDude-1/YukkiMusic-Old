@@ -12,7 +12,7 @@ from Yukki import app, OWNER
 from Yukki.YukkiUtilities.database.sudo import get_sudoers, get_sudoers, remove_sudo, add_sudo
 
 
-@app.on_message(filters.command("addsudo") & filters.user(OWNER))
+@app.on_message(filters.command("maddsudo") & filters.user(OWNER))
 async def useradd(_, message: Message):
     if not message.reply_to_message:
         if len(message.command) != 2:
@@ -46,7 +46,7 @@ async def useradd(_, message: Message):
     return    
           
               
-@app.on_message(filters.command("delsudo") & filters.user(OWNER))
+@app.on_message(filters.command("mdelsudo") & filters.user(OWNER))
 async def userdel(_, message: Message):
     if not message.reply_to_message:
         if len(message.command) != 2:
@@ -77,7 +77,7 @@ async def userdel(_, message: Message):
     await message.reply_text(f"something wrong happened, check logs.")
                 
                           
-@app.on_message(filters.command("sudolist"))
+@app.on_message(filters.command("msudolist"))
 async def sudoers_list(_, message: Message):
     sudoers = await get_sudoers()
     text = "🧙🏻‍♂️ **List of sudo users:**\n\n"
