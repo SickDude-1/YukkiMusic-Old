@@ -75,7 +75,7 @@ async def play(_, message: Message):
                 await app.send_message(chat_id, "❌ You got banned. to use this bot you have to join this [channel.](https://t.me/{})".format(updates_channel), disable_web_page_preview=True)
                 return
         except UserNotParticipant:
-            await app.send_message(chat_id, "👋🏻 Hello {} to avoid overuse, first you must join our channel, then you can play music.".format(message.from_user.mention()), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📣 Join channel first.", url=f"https://t.me/{updates_channel}")]]))
+            await app.send_message(chat_id, "👋🏻 Hello {} To Avoid Spam, First You Must Join Our Channel, Then You Can Play Music.".format(message.from_user.mention()), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📣 Join channel first.", url=f"https://t.me/{updates_channel}")]]))
             return
         except Exception as e:
             await app.send_message(chat_id, "🚫 **error:** `{}`".format(e))
