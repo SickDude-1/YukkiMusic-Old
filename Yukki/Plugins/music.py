@@ -60,11 +60,26 @@ def convert_seconds(seconds):
     seconds %= 60
     return "%02d:%02d" % (minutes, seconds)
 
+force_subs = os.getenv("forcesubs", "CheemsxBots")
 
-@Client.on_message(command(["play", "play@cheemsxrobot"]) & other_filters)
+@app.on_message(command(["play", "play@VeezMegaBot"]) & other_filters)
 async def play(_, message: Message):
     await message.delete()
-    chat_id = message.chat.id
+    chat_id = message.chat.id 
+    user_id = message.from_user.id
+    updates_channel = force_subs
+    if updates_channel:
+        try:
+            user = await app.get_chat_member(updates_channel, user_id)
+            if user.status == "kicked":
+                await app.send_message(chat_id, "❌ You got banned. to use this bot you have to join this [channel.](https://t.me/{})".format(updates_channel), disable_web_page_preview=True)
+                return
+        except UserNotParticipant:
+            await app.send_message(chat_id, "👋🏻 Hello {} to avoid overuse, first you must join our channel, then you can play music.".format(message.from_user.mention()), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📣 Join channel first.", url=f"https://t.me/{updates_channel}")]]))
+            return
+        except Exception as e:
+            await app.send_message(chat_id, "🚫 **error:** `{}`".format(e))
+            returnq
     if message.sender_chat:
         return await message.reply_text("You'll need to switch to a user account to play music.")  
     user_id = message.from_user.id
