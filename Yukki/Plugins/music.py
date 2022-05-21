@@ -62,7 +62,7 @@ def convert_seconds(seconds):
 
 force_subs = os.getenv("forcesubs", "CheemsxBots")
 
-@app.on_message(command(["play", "play@VeezMegaBot"]) & other_filters)
+@app.on_message(command(["play", "play@cheemsxrobot"]) & other_filters)
 async def play(_, message: Message):
     await message.delete()
     chat_id = message.chat.id 
