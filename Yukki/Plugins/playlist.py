@@ -11,7 +11,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 options = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "all","16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]   
 
 
-@Client.on_message(command(["playlist", "playlist@VeezMegaBot"]) & other_filters)
+@Client.on_message(command(["playlist", "playlist@cheemsxrobot"]) & other_filters)
 async def start_playlist_cmd(_, message):
     thumb ="cache/playlist.png"
     await message.reply_photo(
@@ -21,7 +21,7 @@ async def start_playlist_cmd(_, message):
     return 
 
 
-@Client.on_message(command(["delmyplaylist", "delmyplaylist@VeezMegaBot"]) & other_filters)
+@Client.on_message(command(["delmyplaylist", "delmyplaylist@cheemsxrobot"]) & other_filters)
 async def del_personal_playlist(_, message):
     usage = ("usage:\n\n/delmyplaylist [numbers between 1-30] (to delete a particular music in playlist)\n\n/delmyplaylist all (to delete whole playlist)")
     if len(message.command) < 2:
@@ -53,7 +53,7 @@ async def del_personal_playlist(_, message):
         await message.reply_text("You not have such music in personal playlist !")                             
 
 
-@Client.on_message(command(["delchatplaylist", "delchatplaylist@VeezMegaBot"]) & other_filters)
+@Client.on_message(command(["delchatplaylist", "delchatplaylist@cheemsxrobot"]) & other_filters)
 async def del_chat_playlist(_, message):
     a = await app.get_chat_member(message.chat.id , message.from_user.id)
     if not a.can_manage_voice_chats:
