@@ -20,7 +20,7 @@ from ..YukkiUtilities.helpers.time import get_readable_time
 from ..YukkiUtilities.helpers.filters import command
 
 
-@app.on_message(command("mstats") & filters.user(SUDOERS))
+@app.on_message(command("stats") & filters.user(SUDOERS))
 async def get_statistic(_, message):
     m = await message.reply_text("🔄 **Getting bot stats...**")
     served_chats = []
@@ -35,7 +35,8 @@ async def get_statistic(_, message):
             user = await app.get_users(user_id)
             j += 1
         except Exception:
-            continue                     
+            continue  
+    kontol_chats = len(await get_served_chats())                   
     modules_count ="20"
     sc = platform.system()
     arch = platform.machine()
@@ -70,7 +71,7 @@ async def get_statistic(_, message):
 **Imported Modules:** `{modules_count}`
 **Gbanned Users:** `{blocked}`
 **Sudo Users:** `{j}`
-**Authorized Chats:** `{len(served_chats)}`
+**Authorized Chats:** `{kontol_chats}`
 """
     served_chats.pop(0)
     await m.edit(msg, disable_web_page_preview=True)
