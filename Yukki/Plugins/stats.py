@@ -20,7 +20,7 @@ from ..YukkiUtilities.helpers.time import get_readable_time
 from ..YukkiUtilities.helpers.filters import command
 
 
-@app.on_message(command("stats") & filters.user(SUDOERS))
+@app.on_message(command("mstats") & filters.user(SUDOERS))
 async def get_statistic(_, message):
     m = await message.reply_text("🔄 **Getting bot stats...**")
     served_chats = []
