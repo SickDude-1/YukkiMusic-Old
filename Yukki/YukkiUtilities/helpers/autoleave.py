@@ -1,5 +1,5 @@
 from pyrogram.errors import PeerIdInvalid, UserNotParticipant
-from Music.MusicUtilities.tgcallsrun.music import pytgcalls, smexy as user
+from Yukki.YukkiUtilities.tgcallsrun.music import pytgcalls, smexy as user
 
 
 async def leave_from_inactive_call():
