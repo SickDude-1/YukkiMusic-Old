@@ -1,17 +1,23 @@
 import time
+import pytz
 import uvloop
 import asyncio
 import importlib
 
+from pytz import utc
 from pytgcalls import idle
 from pyrogram import Client
 
-from .YukkiUtilities.tgcallsrun import run as runs
+from Yukki.YukkiUtilities.tgcallsrun import run as runs
 from Yukki import BOT_NAME, ASSNAME, app, chacha, aiohttpsession
 from Yukki.YukkiUtilities.database.functions import clean_restart_stage
 from Yukki.YukkiUtilities.database.queue import (get_active_chats, remove_active_chat)
-from .config import API_ID, API_HASH, BOT_TOKEN, MONGO_DB_URI, SUDO_USERS, LOG_GROUP_ID
+from Yukki.config import API_ID, API_HASH, BOT_TOKEN, MONGO_DB_URI, SUDO_USERS, LOG_GROUP_ID
+from Yukki.config import AUTO_LEAVE
+from Yukki.YukkiUtilities.helpers.autoleave import leave_from_inactive_call
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
+scheduler = AsyncIOScheduler()
 
 Client(
     ':mega:',
@@ -51,8 +57,14 @@ async def main():
             print("error came while clearing db")
             pass     
     await app.send_message(LOG_GROUP_ID, "✅ bot client started")
-    await chacha.send_message(LOG_GROUP_ID, "✅ userbot client started")
     print("[ SERVER ] <--- CLIENT RESTARTED! --->")
+    if AUTO_LEAVE:
+        print("[ INFO ] STARTING SCHEDULER")
+        scheduler.configure(timezone=pytz.utc)
+        scheduler.add_job(
+            leave_from_inactive_call, "interval", seconds=AUTO_LEAVE
+        )
+        scheduler.start()
 
 
 loop = asyncio.get_event_loop()
